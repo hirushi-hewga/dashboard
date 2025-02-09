@@ -14,7 +14,7 @@ const MainPage = () => {
 
     return (
             <div className='container'>
-                <SolidButton text="Solid green button" color="green" />
+                <SolidButton text="Solid green button" color="magenta" />
                 <div className="title">
                     <h1>{titleText}</h1>
                 </div>

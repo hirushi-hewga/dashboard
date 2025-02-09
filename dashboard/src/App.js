@@ -9,30 +9,27 @@ const App = () => {
     const [theme, setTheme] = useState("light")
 
 
-    const ChangeThemeHandler = () => {
+    const changeThemeHandler = () => {
         const currentTheme = theme === "dark" ? "light" : "dark"
         setTheme(currentTheme)
         localStorage.setItem("theme", currentTheme)
         console.log("event theme", currentTheme)
     }
+  
 
-
-    function getThemeCallBack() {
+    useEffect(() => {
         const currentTheme = localStorage.getItem("theme")
         if (currentTheme) {
             setTheme(currentTheme)
         }
-    }
-  
-
-    useEffect(getThemeCallBack, [])
+    }, [])
 
 
   return (
     <>
-      <Navbar isDark={theme === "dark"} />
+      <Navbar isDark={theme === "dark"} themeCallBack={changeThemeHandler} />
       <div>
-        <button onClick={ChangeThemeHandler} style={{margin: "10px 5px"}}>Change theme</button>
+        <button onClick={changeThemeHandler} style={{margin: "10px 5px"}}>Change theme</button>
       </div>
       <MainPage />
       <Footer />

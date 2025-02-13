@@ -1,10 +1,11 @@
-import { SolidButton } from '../../Buttons'
-import * as style from './style'
 // import darkThemeIcon from './images/dark_theme_icon.svg'
 // import lightThemeIcon from './images/light_theme_icon.svg'
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { IconButton } from '@mui/material';
+import { SolidButton } from '../../Buttons'
+import { Link } from 'react-router-dom'
+import * as style from './style'
 import './style.css'
 
 const Navbar = ({ isDark = false, themeCallBack }) => {
@@ -13,10 +14,10 @@ const Navbar = ({ isDark = false, themeCallBack }) => {
 
     return (
         <div className='navbar' style={isDark ? style.navbarDark : style.navbarLight}>
-            <a className='navLink' style={navLinkStyle} href="#">Main page</a>
-            <a className='navLink' style={navLinkStyle} href="#">About</a>
-            <a className='navLink' style={navLinkStyle} href="#">Page 3</a>
-            <a className='navLink' style={navLinkStyle} href="#">Page 4</a>
+            <Link style={navLinkStyle} to="/">Main page</Link>
+            <Link style={navLinkStyle} to="/about">About</Link>
+            <Link style={navLinkStyle} to="/register">Register</Link>
+            <Link style={navLinkStyle} to="/">Page 4</Link>
 
             {/* <div onClick={themeCallBack}>
                 <img src={theme}></img>

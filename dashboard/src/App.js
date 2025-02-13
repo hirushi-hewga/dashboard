@@ -1,37 +1,25 @@
-import { useEffect, useState } from 'react'
 import MainPage from './pages/mainPage/MainPage'
-import Footer from './components/footer'
-import Navbar from './components/navbar/Navbar'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import RegisterPage from './pages/registerPage/RegisterPage'
+import AboutPage from './pages/aboutPage/AboutPage'
+import NotFoundPage from './pages/notFoundPage/NotFoundPage'
+import DefaultLayout from './components/layouts/DefaultLayout'
 
 const App = () => {
-    // state
-    const [theme, setTheme] = useState("light")
-
-
-    const changeThemeHandler = () => {
-        const currentTheme = theme === "dark" ? "light" : "dark"
-        setTheme(currentTheme)
-        localStorage.setItem("theme", currentTheme)
-        console.log("event theme", currentTheme)
-    }
-  
-
-    useEffect(() => {
-        const currentTheme = localStorage.getItem("theme")
-        if (currentTheme) {
-            setTheme(currentTheme)
-        }
-    }, [])
+    
 
 
   return (
     <>
-      <Navbar isDark={theme === "dark"} themeCallBack={changeThemeHandler} />
-      {/* <MainPage /> */}
-      <RegisterPage />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<DefaultLayout />} >
+          <Route index element={<MainPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
     </>
   )
 }

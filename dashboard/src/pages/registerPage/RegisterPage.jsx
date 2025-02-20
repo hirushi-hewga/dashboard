@@ -8,7 +8,7 @@ const RegisterPage= () => {
     const formHandler = (values) => {
         const users = localStorage.getItem("users")
         if (!users) {
-            localStorage.setItem("users", JSON.stringify(values))
+            localStorage.setItem("users", JSON.stringify([values]))
         } else {
             const array = JSON.parse(users)
             array.push(values)

@@ -8,9 +8,22 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 
-const EditUserPage = () => {
+const EditUserPage = ({ isEdit = false }) => {
     const navigate = useNavigate()
     const params = useParams()
+
+    const formCreateHandler = (values) => {
+        const users = localStorage.getItem("users")
+        if (!users) {
+            localStorage.setItem("users", JSON.stringify([{...values, id: 1}]))
+        } else {
+            const array = JSON.parse(users)
+            values.id = array[array.length - 1].id + 1
+            array.push(values)
+            localStorage.setItem("users", JSON.stringify(array))
+        }
+        navigate("/users")
+    }
         
     const formEditHandler = (values) => {
         const localData = localStorage.getItem("users")
@@ -27,20 +40,22 @@ const EditUserPage = () => {
     }
 
     useEffect(() => {
-        const localData = localStorage.getItem("users")
-        if (!localData) {
-            navigate("/users")
+        if (isEdit) {
+            const localData = localStorage.getItem("users")
+            if (!localData) {
+                navigate("/users")
+            }
+            
+            const id = params.id
+            const users = JSON.parse(localData)
+            const user = users.find(u => u.id == id)
+    
+            if (!user) {
+                navigate("/users")
+            }
+    
+            formik.setValues(user)
         }
-        
-        const id = params.id
-        const users = JSON.parse(localData)
-        const user = users.find(u => u.id == id)
-
-        if (!user) {
-            navigate("/users")
-        }
-
-        formik.setValues(user)
 
     }, [])
 
@@ -64,13 +79,16 @@ const EditUserPage = () => {
     // formik
     const formik = useFormik({
         initialValues: initValues,
-        onSubmit: formEditHandler,
+        onSubmit: isEdit ? formEditHandler : formCreateHandler,
         validationSchema: yupValidationScheme
     })
 
 
     return (
         <Box component="form" onSubmit={formik.handleSubmit} className="form-container">
+            <Box>
+                <h1>{ isEdit ? "Edit user" : "Create user" }</h1>
+            </Box>
             <Box className="form-control">
                 <TextField
                   id="firstName"
@@ -133,7 +151,9 @@ const EditUserPage = () => {
                 <FormError text={formik.errors.password} />
             ) : null}
             <Box className="form-control">
-                <Button type='submit' variant="contained" fullWidth>Register</Button>
+                <Button type='submit' variant="contained" fullWidth>
+                    { isEdit ? "Save" : "Create" }
+                </Button>
             </Box>
         </Box>
     )

@@ -45,7 +45,7 @@ const UsersListPage = () => {
                     <TableCell align="center">{user.email}</TableCell>
                     <TableCell align="center">{user.password}</TableCell>
                     <TableCell align="center">
-                      <Link to={`edit/${user.id}`}>
+                      <Link to={`user/${user.id}`}>
                         <EditIcon></EditIcon>
                       </Link>
                     </TableCell>
@@ -55,7 +55,7 @@ const UsersListPage = () => {
           </Table>
         </TableContainer>
         <Box style={{"width": "50%", "margin": "auto"}}>
-          <Link to="create">
+          <Link to="user">
             <Button style={{"margin": "10px"}} variant='contained' fullWidth>Create</Button>
           </Link>
         </Box>

@@ -21,7 +21,8 @@ const App = () => {
           <Route path="about" element={ <AboutPage /> } />
           <Route path="users">
             <Route index element={ <UsersListPage /> } />
-            <Route path="edit/:id" element={ <EditUserPage /> } />
+            <Route path="user" element={ <EditUserPage isEdit={false} /> } />
+            <Route path="user/:id" element={ <EditUserPage isEdit={true} /> } />
           </Route>
           <Route path="*" element={ <NotFoundPage /> } />
         </Route>

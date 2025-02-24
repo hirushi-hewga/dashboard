@@ -1,35 +1,56 @@
+import { useParams } from "react-router-dom"
 import { Box, Button, TextField } from '@mui/material'
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import './style.css'
-import { FormError } from '../../components/errors/Errors';
-import { useNavigate } from 'react-router-dom';
+import { FormError } from "../../../components/errors/Errors";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
-const RegisterPage= () => {
+const EditUserPage = () => {
     const navigate = useNavigate()
-    
-    const formHandler = (values) => {
-        const users = localStorage.getItem("users")
-        if (!users) {
-            localStorage.setItem("users", JSON.stringify([{...values, id: 1}]))
-        } else {
-            const array = JSON.parse(users)
-            values.id = array[array.length - 1].id + 1
-            array.push(values)
-            localStorage.setItem("users", JSON.stringify(array))
+    const params = useParams()
+        
+    const formEditHandler = (values) => {
+        const localData = localStorage.getItem("users")
+        if(!localData) {
+            navigate("/users")
         }
-        navigate("/")
+
+        const users = JSON.parse(localData)
+        const userIndex = users.findIndex(u => u.id = values.id)
+        users[userIndex] = {...values}
+        localStorage.setItem("users", JSON.stringify(users))
+
+        navigate("/users")
     }
-    
+
+    useEffect(() => {
+        const localData = localStorage.getItem("users")
+        if (!localData) {
+            navigate("/users")
+        }
+        
+        const id = params.id
+        const users = JSON.parse(localData)
+        const user = users.find(u => u.id == id)
+
+        if (!user) {
+            navigate("/users")
+        }
+
+        formik.setValues(user)
+
+    }, [])
 
     // init values
     const initValues = {
+        id: 0,
         firstName: "",
         lastName: "",
         email: "",
-        password: "",
-        confirmPassword: ""
+        password: ""
     }
 
     // validation yup scheme
@@ -37,14 +58,13 @@ const RegisterPage= () => {
         firstName: Yup.string().max(50, "Максимум 50 символів"),
         lastName: Yup.string().max(50, "Максимум 50 символів"),
         email: Yup.string().required("Пошта обов'язкова").email("Невірний формат пошти"),
-        password: Yup.string().required("Пароль обов'язковий").min(8, "Пароль повинен містити не менше 8 символів"),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], "Паролі не збігаються")
+        password: Yup.string().required("Пароль обов'язковий").min(8, "Пароль повинен містити не менше 8 символів")
     })
 
     // formik
     const formik = useFormik({
         initialValues: initValues,
-        onSubmit: formHandler,
+        onSubmit: formEditHandler,
         validationSchema: yupValidationScheme
     })
 
@@ -113,25 +133,10 @@ const RegisterPage= () => {
                 <FormError text={formik.errors.password} />
             ) : null}
             <Box className="form-control">
-                <TextField
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  label="ConfirmPassword"
-                  variant="filled"
-                  fullWidth
-                  onChange={formik.handleChange}
-                  value={formik.values.confirmPassword}
-                  onBlur={formik.handleBlur}
-                />
-            </Box>
-            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                <FormError text={formik.errors.confirmPassword} />
-            ) : null}
-            <Box className="form-control">
                 <Button type='submit' variant="contained" fullWidth>Register</Button>
             </Box>
         </Box>
     )
 }
 
-export default RegisterPage
+export default EditUserPage

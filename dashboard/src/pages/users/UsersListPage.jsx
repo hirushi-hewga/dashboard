@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import usersJson from './users.json'
+import EditIcon from '@mui/icons-material/Edit';
 
 const UsersListPage = () => {
     const [users, setUsers] = useState([])
@@ -29,6 +30,7 @@ const UsersListPage = () => {
                 <TableCell align="center">LastName</TableCell>
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center">Password</TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -42,6 +44,11 @@ const UsersListPage = () => {
                     <TableCell align="center">{user.lastName}</TableCell>
                     <TableCell align="center">{user.email}</TableCell>
                     <TableCell align="center">{user.password}</TableCell>
+                    <TableCell align="center">
+                      <Link to={`edit/${user.id}`}>
+                        <EditIcon></EditIcon>
+                      </Link>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>

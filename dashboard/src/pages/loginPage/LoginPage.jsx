@@ -20,6 +20,7 @@ const LoginPage = () => {
         const users = JSON.parse(localData)
         const user = users.find(u => u.email === values.email)
 
+        setLoginError(null)
         if (user) {
             if (user.password === values.password) {
                 localStorage.setItem("auth", JSON.stringify(user))
@@ -100,7 +101,7 @@ const LoginPage = () => {
                 <Typography>Ще не зареєстровані? <Link to="/register">Зареєструватися</Link></Typography>
             </Box>
             <Box>
-                <FormError text={loginError} ></FormError>
+                <FormError text={loginError} />
             </Box>
         </Box>
     )

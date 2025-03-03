@@ -7,7 +7,12 @@ import { Link } from 'react-router-dom'
 import * as style from './style'
 import './style.css'
 
-const Navbar = ({ isDark = false, themeCallBack }) => {
+const Navbar = ({ auth, isDark = false, themeCallBack }) => {
+
+    const logoutHandler = () => {
+        localStorage.removeItem("auth")
+    }
+
     const navLinkStyle = isDark ? style.navLinkDark : style.navLinkLight
     // const theme = isDark ? darkThemeIcon : lightThemeIcon
 
@@ -30,14 +35,18 @@ const Navbar = ({ isDark = false, themeCallBack }) => {
                     <IconButton sx={{ color: "white" }}><LightModeIcon /></IconButton> : 
                     <IconButton><DarkModeIcon /></IconButton> }
             </div>
-            <div className='navauth'>
+            
+            { !auth ? <div className='navauth'>
                 <Link to="login">
                     <Button style={{margin: "0 5px 0 0"}} variant='contained'>Login</Button>
                 </Link>
                 <Link to="register">
                     <Button style={{margin: "0 10px 0 5px"}} variant='contained'>Register</Button>
                 </Link>
-            </div>
+            </div> : <div className='navauth'>
+                <Button style={{margin: "0 10px 0 5px"}} variant='contained'>Logout</Button>
+            </div> }
+
         </div>
     )
 }

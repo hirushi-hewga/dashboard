@@ -1,9 +1,9 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import './style.css'
 import { FormError } from '../../components/errors/Errors';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const RegisterPage= () => {
@@ -51,6 +51,9 @@ const RegisterPage= () => {
 
     return (
         <Box component="form" onSubmit={formik.handleSubmit} className="form-container">
+            <Box>
+                <h1>Register</h1>
+            </Box>
             <Box className="form-control">
                 <TextField
                   id="firstName"
@@ -129,6 +132,9 @@ const RegisterPage= () => {
             ) : null}
             <Box className="form-control">
                 <Button type='submit' variant="contained" fullWidth>Register</Button>
+            </Box>
+            <Box>
+                <Typography>Вже зареєстровані? <Link to="/login">Увійти</Link></Typography>
             </Box>
         </Box>
     )

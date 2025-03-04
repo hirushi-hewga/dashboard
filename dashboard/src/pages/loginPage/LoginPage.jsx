@@ -4,11 +4,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import '../registerPage/style.css'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../components/poviders/AuthProvider';
 
-const LoginPage = ({ login }) => {
+const LoginPage = () => {
     const [loginError, setLoginError] = useState(null)
     const navigate = useNavigate()
+    const { login } = useContext(AuthContext)
     
     const formHandler = (values) => {
         const localData = localStorage.getItem("users")

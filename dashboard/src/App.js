@@ -8,41 +8,29 @@ import DefaultLayout from './components/layouts/DefaultLayout'
 import UsersListPage from './pages/users/UsersListPage'
 import EditUserPage from './pages/users/EditUserPage/EditUserPage'
 import LoginPage from './pages/loginPage/LoginPage'
-import { useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { AuthContext } from './components/poviders/AuthProvider'
 
 const App = () => {
-  const[auth, setAuth] = useState(null)
 
-  const login = () => {
-    const localData = localStorage.getItem("auth")
-
-    if (localData) {
-      setAuth(JSON.parse(localData))
-    }
-  }
-
+  const { auth, login } = useContext(AuthContext)
+  
   useEffect(() => {
     login()
   }, [])
-
-  const logout = () => {
-    localStorage.removeItem("auth")
-    setAuth(null)
-  }
 
 
 
 
 
   return (
-    <>
       <Routes>
-        <Route path="/" element={ <DefaultLayout auth={auth} logout={logout} /> } >
+        <Route path="/" element={ <DefaultLayout /> } >
           <Route index element={ <MainPage /> } />
           { !auth && (
               <>
               <Route path="register" element={ <RegisterPage /> } />
-              <Route path="login" element={ <LoginPage login={login} /> } />
+              <Route path="login" element={ <LoginPage /> } />
               </>
           )}
           <Route path="about" element={ <AboutPage /> } />
@@ -54,7 +42,6 @@ const App = () => {
           <Route path="*" element={ <NotFoundPage /> } />
         </Route>
       </Routes>
-    </>
   )
 }
 

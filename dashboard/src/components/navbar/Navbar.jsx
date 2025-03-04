@@ -6,8 +6,12 @@ import { Button, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom'
 import * as style from './style'
 import './style.css'
+import { useContext } from 'react';
+import { AuthContext } from '../poviders/AuthProvider';
 
-const Navbar = ({ logout, auth, isDark = false, themeCallBack }) => {
+const Navbar = ({ isDark = false, themeCallBack }) => {
+
+    const { auth, logout } = useContext(AuthContext)
 
     const logoutHandler = () => {
         logout()

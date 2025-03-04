@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import '../registerPage/style.css'
 import { useState } from 'react';
 
-const LoginPage = () => {
+const LoginPage = ({ login }) => {
     const [loginError, setLoginError] = useState(null)
     const navigate = useNavigate()
     
@@ -24,6 +24,7 @@ const LoginPage = () => {
         if (user) {
             if (user.password === values.password) {
                 localStorage.setItem("auth", JSON.stringify(user))
+                login()
                 navigate("/")
             } else {
                 setLoginError("Не вірно вказано пароль")

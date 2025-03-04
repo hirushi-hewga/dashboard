@@ -13,19 +13,22 @@ import { useState, useEffect } from 'react'
 const App = () => {
   const[auth, setAuth] = useState(null)
 
-  useEffect(() => {
+  const login = () => {
     const localData = localStorage.getItem("auth")
 
     if (localData) {
       setAuth(JSON.parse(localData))
     }
+  }
+
+  useEffect(() => {
+    login()
   }, [])
 
-
-
-
-
-
+  const logout = () => {
+    localStorage.removeItem("auth")
+    setAuth(null)
+  }
 
 
 
@@ -34,10 +37,14 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={ <DefaultLayout auth={auth} /> } >
+        <Route path="/" element={ <DefaultLayout auth={auth} logout={logout} /> } >
           <Route index element={ <MainPage /> } />
-          <Route path="register" element={ <RegisterPage /> } />
-          <Route path="login" element={ <LoginPage /> } />
+          { !auth && (
+              <>
+              <Route path="register" element={ <RegisterPage /> } />
+              <Route path="login" element={ <LoginPage login={login} /> } />
+              </>
+          )}
           <Route path="about" element={ <AboutPage /> } />
           <Route path="users">
             <Route index element={ <UsersListPage /> } />

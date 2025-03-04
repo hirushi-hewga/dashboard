@@ -4,7 +4,7 @@ import { Container } from "@mui/material"
 import Navbar from "../navbar/Navbar"
 import Footer from "../footer"
 
-const DefaultLayout = ({ auth }) => {
+const DefaultLayout = ({ auth, logout }) => {
 
 
 
@@ -35,7 +35,7 @@ const DefaultLayout = ({ auth }) => {
 
     return (
         <>
-            <Navbar auth={auth} isDark={theme === "dark"} themeCallBack={changeThemeHandler} />
+            <Navbar logout={logout} auth={auth} isDark={theme === "dark"} themeCallBack={changeThemeHandler} />
             <Container maxWidth="lg">
                 <Outlet />
             </Container>

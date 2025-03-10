@@ -1,0 +1,1 @@
+export const defaultAvatarUrl = "https://i.pinimg.com/736x/dc/9c/61/dc9c614e3007080a5aff36aebb949474.jpg"

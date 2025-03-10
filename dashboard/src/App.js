@@ -10,6 +10,7 @@ import EditUserPage from './pages/users/EditUserPage/EditUserPage'
 import LoginPage from './pages/loginPage/LoginPage'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from './components/poviders/AuthProvider'
+import ProfilePage from './pages/profilePage/ProfilePage'
 
 const App = () => {
 
@@ -27,10 +28,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={ <DefaultLayout /> } >
           <Route index element={ <MainPage /> } />
-          { !auth && (
+          { !auth ? (
               <>
               <Route path="register" element={ <RegisterPage /> } />
               <Route path="login" element={ <LoginPage /> } />
+              </>
+          ) : (
+              <>
+              <Route path='profile' element={ <ProfilePage /> } />
               </>
           )}
           <Route path="about" element={ <AboutPage /> } />

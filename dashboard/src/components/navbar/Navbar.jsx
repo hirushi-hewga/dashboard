@@ -64,7 +64,7 @@ const Navbar = ({ isDark = false, themeCallBack }) => {
                 <Box style={{ display: "flex", justifyContent: "center", flexGrow: 1 }}>
                     <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src={defaultAvatarUrl} />
+                            <Avatar alt="Remy Sharp" src={auth.image ? auth.image : defaultAvatarUrl} />
                         </IconButton>
                     </Tooltip>
                 </Box>

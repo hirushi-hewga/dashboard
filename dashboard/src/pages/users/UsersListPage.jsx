@@ -1,8 +1,9 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Button } from '@mui/material'
+import { Table, Avatar, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import usersJson from './users.json'
 import EditIcon from '@mui/icons-material/Edit';
+import { defaultAvatarUrl } from '../../settings/urls';
 
 const UsersListPage = () => {
     const [users, setUsers] = useState([])
@@ -26,8 +27,9 @@ const UsersListPage = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Id</TableCell>
-                <TableCell align="center">FirstName</TableCell>
-                <TableCell align="center">LastName</TableCell>
+                <TableCell align="center">Avatar</TableCell>
+                <TableCell align="center">First name</TableCell>
+                <TableCell align="center">Last name</TableCell>
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center">Password</TableCell>
                 <TableCell align="center"></TableCell>
@@ -40,6 +42,9 @@ const UsersListPage = () => {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="center" component="th" scope="row">{user.id}</TableCell>
+                    <TableCell align="center">{
+                        <Avatar sx={{margin: "auto"}} alt="Remy Sharp" src={user.image ? user.image : defaultAvatarUrl} /> 
+                    }</TableCell>
                     <TableCell align="center">{user.firstName}</TableCell>
                     <TableCell align="center">{user.lastName}</TableCell>
                     <TableCell align="center">{user.email}</TableCell>

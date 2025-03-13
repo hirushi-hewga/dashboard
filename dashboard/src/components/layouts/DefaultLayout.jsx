@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet } from "react-router-dom"
 import { Container } from "@mui/material"
 import Navbar from "../navbar/Navbar"
-import Footer from "../footer"
+import Footer from "../footer/Footer"
 
 const DefaultLayout = () => {
 
